@@ -1,0 +1,25 @@
+Expresion: -5+3
+Agrupacion: correcta (profundidad 0)
+Postfija:  -5 3 +
+Resultado: -2
+
+Expresion: 4*-2
+Agrupacion: correcta (profundidad 0)
+Postfija:  4 -2 *
+Resultado: -8
+
+Expresion: 5--3
+Agrupacion: correcta (profundidad 0)
+Postfija:  5 -3 -
+Resultado: 8
+
+Expresion: 10/-2
+Agrupacion: correcta (profundidad 0)
+Postfija:  10 -2 /
+Resultado: -5
+
+Expresion: (-3)*(-3)
+Agrupacion: correcta (profundidad 1)
+Postfija:  -3 -3 *
+Resultado: 9
+

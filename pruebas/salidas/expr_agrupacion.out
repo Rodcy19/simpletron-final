@@ -1,0 +1,20 @@
+Expresion: [2+3]*{4-1}
+Agrupacion: correcta (profundidad 1)
+Postfija:  2 3 + 4 1 - *
+Resultado: 15
+
+Expresion: {[(1+2)*3]+4}*2
+Agrupacion: correcta (profundidad 3)
+Postfija:  1 2 + 3 * 4 + 2 *
+Resultado: 26
+
+Expresion: ((2+3))*2
+Agrupacion: correcta (profundidad 2)
+Postfija:  2 3 + 2 *
+Resultado: 10
+
+Expresion: (2+3)*(4+5)
+Agrupacion: correcta (profundidad 1)
+Postfija:  2 3 + 4 5 + *
+Resultado: 45
+

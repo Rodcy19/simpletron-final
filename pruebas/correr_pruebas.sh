@@ -6,6 +6,8 @@
 cd "$(dirname "$0")/.." || exit 1
 mkdir -p bin
 gcc -Wall -Wextra -std=c99 -o bin/simpletron src/simpletron/simpletron.c || exit 1
+gcc -Wall -Wextra -std=c99 -o bin/expresiones src/expresiones/expresiones.c \
+    src/expresiones/probar_expresiones.c || exit 1
 
 total=0
 ok=0
@@ -32,6 +34,13 @@ prueba() {
 # El programa se carga desde archivo (argumento) y los datos vienen de la entrada.
 prueba_archivo() {
     ./bin/simpletron "$2" < "$3" > "$obtenida"
+    comparar "$1"
+}
+
+# prueba_expr <nombre>
+# Evalua las expresiones de pruebas/entradas/<nombre>.in (una por linea).
+prueba_expr() {
+    ./bin/expresiones < "pruebas/entradas/$1.in" > "$obtenida"
     comparar "$1"
 }
 
@@ -65,6 +74,19 @@ prueba_archivo cadena_eco_vacia  programas/sml/eco.sml                          
 prueba_archivo cadena_eco_larga  programas/sml/eco.sml                          pruebas/entradas/eco_larga.in
 prueba_archivo cadena_eof        programas/sml/eco.sml                          /dev/null
 prueba_archivo cadena_invalida   pruebas/entradas/programa_cadena_invalida.sml  /dev/null
+
+# Evaluacion de expresiones
+prueba_expr expr_basicas
+prueba_expr expr_potencia
+prueba_expr expr_multidigito
+prueba_expr expr_agrupacion
+prueba_expr expr_profundidad
+prueba_expr expr_balance
+prueba_expr expr_sintaxis
+prueba_expr expr_errores_eval
+prueba_expr expr_variables
+prueba_expr expr_negativos
+prueba_expr expr_larga
 
 rm -f "$obtenida"
 echo "---"

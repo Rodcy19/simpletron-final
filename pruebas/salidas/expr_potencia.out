@@ -1,0 +1,30 @@
+Expresion: 2^3^2
+Agrupacion: correcta (profundidad 0)
+Postfija:  2 3 2 ^ ^
+Resultado: 512
+
+Expresion: 2^3*2
+Agrupacion: correcta (profundidad 0)
+Postfija:  2 3 ^ 2 *
+Resultado: 16
+
+Expresion: 2*3^2
+Agrupacion: correcta (profundidad 0)
+Postfija:  2 3 2 ^ *
+Resultado: 18
+
+Expresion: (2^3)^2
+Agrupacion: correcta (profundidad 1)
+Postfija:  2 3 ^ 2 ^
+Resultado: 64
+
+Expresion: 5^0
+Agrupacion: correcta (profundidad 0)
+Postfija:  5 0 ^
+Resultado: 1
+
+Expresion: 2^10
+Agrupacion: correcta (profundidad 0)
+Postfija:  2 10 ^
+Resultado: 1024
+

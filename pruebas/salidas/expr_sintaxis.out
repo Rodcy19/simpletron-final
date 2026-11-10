@@ -1,0 +1,40 @@
+Expresion: 2+
+Agrupacion: correcta (profundidad 0)
+Error: expresion mal formada
+
+Expresion: *3
+Agrupacion: correcta (profundidad 0)
+Error: expresion mal formada
+
+Expresion: 2 3
+Agrupacion: correcta (profundidad 0)
+Error: expresion mal formada
+
+Expresion: ()
+Agrupacion: correcta (profundidad 1)
+Error: expresion mal formada
+
+Expresion: 2(3)
+Agrupacion: correcta (profundidad 1)
+Error: expresion mal formada
+
+Expresion:    
+Agrupacion: correcta (profundidad 0)
+Error: expresion vacia
+
+Expresion: 2$3
+Agrupacion: correcta (profundidad 0)
+Error: caracter no valido
+
+Expresion: A+1
+Agrupacion: correcta (profundidad 0)
+Error: caracter no valido
+
+Expresion: 2++3
+Agrupacion: correcta (profundidad 0)
+Error: expresion mal formada
+
+Expresion: (2+)
+Agrupacion: correcta (profundidad 1)
+Error: expresion mal formada
+
