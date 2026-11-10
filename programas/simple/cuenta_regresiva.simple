@@ -1,0 +1,7 @@
+10 rem cuenta regresiva
+20 input n
+30 if n <= 0 goto 70
+40 print n
+50 let n = n - 1
+60 goto 30
+70 end

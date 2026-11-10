@@ -1,0 +1,7 @@
+10 rem (a + b) * c ^ 2
+20 input a
+30 input b
+40 input c
+50 let r = (a + b) * c ^ 2
+60 print r
+70 end
