@@ -8,6 +8,9 @@ mkdir -p bin
 gcc -Wall -Wextra -std=c99 -o bin/simpletron src/simpletron/simpletron.c || exit 1
 gcc -Wall -Wextra -std=c99 -o bin/expresiones src/expresiones/expresiones.c \
     src/expresiones/probar_expresiones.c || exit 1
+gcc -Wall -Wextra -std=c99 -o bin/compilador src/compilador/compilador.c \
+    src/compilador/simbolos.c src/compilador/main_compilador.c \
+    src/expresiones/expresiones.c || exit 1
 
 total=0
 ok=0
@@ -87,6 +90,50 @@ prueba_expr expr_errores_eval
 prueba_expr expr_variables
 prueba_expr expr_negativos
 prueba_expr expr_larga
+
+# Compilador de Simple
+# prueba_compila <nombre>
+# Compila programas/simple/<nombre>.simple: compara los mensajes del compilador,
+# y si compila, tambien el .sml generado contra programas/sml/<nombre>_compilado.sml
+prueba_compila() {
+    ./bin/compilador "programas/simple/$1.simple" bin/_tmp.sml > "$obtenida"
+    comparar "compila_$1"
+    if [ -f "programas/sml/$1_compilado.sml" ]; then
+        total=$((total + 1))
+        if diff <(tr -d '\r' < "programas/sml/$1_compilado.sml") <(tr -d '\r' < bin/_tmp.sml) > /dev/null; then
+            echo "OK     sml_$1"
+            ok=$((ok + 1))
+        else
+            echo "FALLO  sml_$1"
+        fi
+    fi
+}
+
+# prueba_simple <nombre> <programa> <entrada>
+# Ejecuta en el simulador el SML generado por el compilador.
+prueba_simple() {
+    prueba_archivo "$1" "programas/sml/$2_compilado.sml" "pruebas/entradas/$3.in"
+}
+
+prueba_compila suma
+prueba_compila mayor
+prueba_compila suma_cero
+prueba_compila expresion
+prueba_compila cuenta_regresiva
+prueba_compila condiciones
+prueba_compila error_varios
+prueba_compila error_sin_end
+prueba_compila error_orden
+prueba_compila error_despues_end
+
+prueba_simple simple_suma      suma             simple_suma
+prueba_simple simple_mayor_a   mayor            mayor_a
+prueba_simple simple_mayor_b   mayor            mayor_b
+prueba_simple simple_suma_cero suma_cero        simple_suma_cero
+prueba_simple simple_expresion expresion        simple_expresion
+prueba_simple simple_cuenta    cuenta_regresiva simple_cuenta
+prueba_simple simple_cond_1    condiciones      simple_cond_1
+prueba_simple simple_cond_2    condiciones      simple_cond_2
 
 rm -f "$obtenida"
 echo "---"

@@ -1,0 +1,7 @@
+10 rem varios errores
+20 input A
+30 LET x = 5
+40 let y = (x + 
+50 if x < 3 goto 999
+60 foo x
+70 end
