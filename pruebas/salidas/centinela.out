@@ -1,0 +1,35 @@
+***Bienvenido a SIMPLETRON***
+***Introduzca su programa una instruccion***
+***(o palabra de datos) a la vez. Yo indicare***
+***el numero de posicion y una interrogacion (?).***
+***Usted tecleara una palabra para esa posicion.***
+***Capture 9999 para terminar de introducir***
+***su programa***
+
+00 ? 01 ? 02 ? 03 ? 04 ? 05 ? 06 ? 07 ? 08 ? 09 ? 10 ? 11 ? 
+***Se termino de cargar el programa***
+***Comienza la ejecucion del programa***
+
+Teclee un entero: Teclee un entero: Teclee un entero: Teclee un entero: 10 => 35
+***Termino la ejecucion de Simpletron***
+
+***REGISTROS***
+accumulator:          +0000
+instructionCounter:   00008
+instructionRegister:  +4300
+operationCode:        43
+operand:              00
+
+***MEMORIA***
+
+       0     1     2     3     4     5     6     7     8     9
+ 0 +1009 +2009 +4207 +2010 +3009 +2110 +4000 +1110 +4300 +0000
+10 +0035 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000
+20 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000
+30 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000
+40 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000
+50 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000
+60 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000
+70 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000
+80 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000
+90 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000 +0000
