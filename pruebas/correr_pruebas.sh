@@ -58,6 +58,14 @@ prueba_archivo potencia_negativa programas/sml/potencia.sml    pruebas/entradas/
 prueba_archivo potencia_cero     programas/sml/potencia.sml    pruebas/entradas/potencia_cero.in
 prueba_archivo salto_linea       programas/sml/salto_linea.sml pruebas/entradas/salto_linea.in
 
+# Cadenas: WRITESTR (13), READSTR (14)
+prueba_archivo cadena_hola       programas/sml/hola.sml                         /dev/null
+prueba_archivo cadena_eco        programas/sml/eco.sml                          pruebas/entradas/eco.in
+prueba_archivo cadena_eco_vacia  programas/sml/eco.sml                          pruebas/entradas/eco_vacia.in
+prueba_archivo cadena_eco_larga  programas/sml/eco.sml                          pruebas/entradas/eco_larga.in
+prueba_archivo cadena_eof        programas/sml/eco.sml                          /dev/null
+prueba_archivo cadena_invalida   pruebas/entradas/programa_cadena_invalida.sml  /dev/null
+
 rm -f "$obtenida"
 echo "---"
 echo "$ok de $total pruebas correctas"
