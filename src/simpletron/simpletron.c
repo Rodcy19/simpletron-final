@@ -40,21 +40,42 @@ typedef struct {
 static int RAM[CAPACIDAD];
 
 static void mostrarBienvenida(void);
-static int  leerPalabra(long *valor);
+static int  leerPalabra(FILE *f, long *valor);
 static int  cargarPrograma(int mem[]);
+static int  cargarDesdeArchivo(int mem[], const char *ruta);
 static int  verificarAcumulador(const Registros *reg);
 static int  correrCiclo(int mem[], Registros *reg);
 static void volcarMemoria(const int mem[], const Registros *reg);
 
-int main(void)
+int main(int argc, char *argv[])
 {
     Registros reg = {0, 0, 0, 0, 0};
     int huboError;
 
-    mostrarBienvenida();
-    cargarPrograma(RAM);
+    if (argc > 2)
+    {
+        printf("Uso: %s [programa.sml]\n", argv[0]);
+        return 1;
+    }
 
-    printf("\n***Se termino de cargar el programa***\n");
+    if (argc == 2)
+    {
+        int palabras = cargarDesdeArchivo(RAM, argv[1]);
+
+        if (palabras < 0)
+        {
+            return 1;
+        }
+        printf("***Programa cargado desde '%s' (%d palabras)***\n",
+               argv[1], palabras);
+    }
+    else
+    {
+        mostrarBienvenida();
+        cargarPrograma(RAM);
+        printf("\n***Se termino de cargar el programa***\n");
+    }
+
     printf("***Comienza la ejecucion del programa***\n\n");
 
     huboError = correrCiclo(RAM, &reg);
@@ -81,26 +102,26 @@ static void mostrarBienvenida(void)
 }
 
 /*
- * Lee una linea de la entrada estandar y extrae un entero.
+ * Lee una linea del flujo f y extrae un entero.
  * Devuelve LEER_OK, LEER_VACIA (linea en blanco o comentario),
  * LEER_INVALIDA (no es un entero) o LEER_EOF (fin de la entrada).
  */
-static int leerPalabra(long *valor)
+static int leerPalabra(FILE *f, long *valor)
 {
     char linea[128];
     char *p;
     char *fin;
 
-    if (fgets(linea, sizeof linea, stdin) == NULL)
+    if (fgets(linea, sizeof linea, f) == NULL)
     {
         return LEER_EOF;
     }
 
     /* si la linea fue mas larga que el buffer, descartar el resto */
-    if (strchr(linea, '\n') == NULL && !feof(stdin))
+    if (strchr(linea, '\n') == NULL && !feof(f))
     {
         int c;
-        while ((c = getchar()) != '\n' && c != EOF)
+        while ((c = fgetc(f)) != '\n' && c != EOF)
         {
         }
     }
@@ -151,7 +172,7 @@ static int cargarPrograma(int mem[])
             mostrarPrompt = 0;
         }
 
-        r = leerPalabra(&dato);
+        r = leerPalabra(stdin, &dato);
 
         if (r == LEER_EOF)
         {
@@ -181,6 +202,74 @@ static int cargarPrograma(int mem[])
 
         mem[direccion] = (int)dato;
         direccion++;
+    }
+
+    return direccion;
+}
+
+/* Carga el programa desde un archivo. Devuelve cuantas palabras cargo,
+   o -1 si el archivo no existe o su contenido no es valido. */
+static int cargarDesdeArchivo(int mem[], const char *ruta)
+{
+    FILE *f = fopen(ruta, "r");
+    int direccion = 0;
+    int linea = 0;
+    long dato = 0;
+    int r;
+
+    if (f == NULL)
+    {
+        printf("***No se pudo abrir el archivo '%s'***\n", ruta);
+        return -1;
+    }
+
+    for (;;)
+    {
+        r = leerPalabra(f, &dato);
+        linea++;
+
+        if (r == LEER_EOF)
+        {
+            break;
+        }
+        if (r == LEER_VACIA)
+        {
+            continue;
+        }
+        if (r == LEER_INVALIDA)
+        {
+            printf("***Archivo no valido: linea %d no es un entero***\n", linea);
+            fclose(f);
+            return -1;
+        }
+        if (dato == CENTINELA)
+        {
+            break;
+        }
+        if (dato < PALABRA_MIN || dato > PALABRA_MAX)
+        {
+            printf("***Archivo no valido: linea %d fuera de rango***\n", linea);
+            fclose(f);
+            return -1;
+        }
+        if (direccion >= CAPACIDAD)
+        {
+            printf("***Archivo no valido: el programa excede %d posiciones***\n",
+                   CAPACIDAD);
+            fclose(f);
+            return -1;
+        }
+
+        mem[direccion] = (int)dato;
+        direccion++;
+    }
+
+    fclose(f);
+
+    if (direccion == 0)
+    {
+        printf("***Archivo no valido: no contiene palabras***\n");
+        return -1;
     }
 
     return direccion;
@@ -231,7 +320,7 @@ static int correrCiclo(int mem[], Registros *reg)
                 for (;;)
                 {
                     printf("Teclee un entero: ");
-                    r = leerPalabra(&valor);
+                    r = leerPalabra(stdin, &valor);
                     if (r == LEER_EOF)
                     {
                         printf("\n***Se acabaron los datos de entrada***\n");
