@@ -1,0 +1,20 @@
+Expresion: a+b*2
+Agrupacion: correcta (profundidad 0)
+Postfija:  a b 2 * +
+Resultado: no se evalua (contiene variables)
+
+Expresion: (x+y)/z
+Agrupacion: correcta (profundidad 1)
+Postfija:  x y + z /
+Resultado: no se evalua (contiene variables)
+
+Expresion: 2^n+1
+Agrupacion: correcta (profundidad 0)
+Postfija:  2 n ^ 1 +
+Resultado: no se evalua (contiene variables)
+
+Expresion: a
+Agrupacion: correcta (profundidad 0)
+Postfija:  a
+Resultado: no se evalua (contiene variables)
+

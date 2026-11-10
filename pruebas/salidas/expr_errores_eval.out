@@ -1,0 +1,33 @@
+Expresion: 5/0
+Agrupacion: correcta (profundidad 0)
+Postfija:  5 0 /
+Error: division entre cero
+
+Expresion: 5/(3-3)
+Agrupacion: correcta (profundidad 1)
+Postfija:  5 3 3 - /
+Error: division entre cero
+
+Expresion: 2^-1
+Agrupacion: correcta (profundidad 0)
+Postfija:  2 -1 ^
+Error: exponente negativo no valido
+
+Expresion: 100*100
+Agrupacion: correcta (profundidad 0)
+Postfija:  100 100 *
+Error: valor fuera del rango (-9999 a 9999)
+
+Expresion: 10000
+Agrupacion: correcta (profundidad 0)
+Error: valor fuera del rango (-9999 a 9999)
+
+Expresion: 99999999999999999999
+Agrupacion: correcta (profundidad 0)
+Error: valor fuera del rango (-9999 a 9999)
+
+Expresion: 0-9999-1
+Agrupacion: correcta (profundidad 0)
+Postfija:  0 9999 - 1 -
+Error: valor fuera del rango (-9999 a 9999)
+

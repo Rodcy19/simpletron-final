@@ -1,0 +1,30 @@
+Expresion: 2+3
+Agrupacion: correcta (profundidad 0)
+Postfija:  2 3 +
+Resultado: 5
+
+Expresion: 2+3*4
+Agrupacion: correcta (profundidad 0)
+Postfija:  2 3 4 * +
+Resultado: 14
+
+Expresion: (2+3)*4
+Agrupacion: correcta (profundidad 1)
+Postfija:  2 3 + 4 *
+Resultado: 20
+
+Expresion: 10-4-3
+Agrupacion: correcta (profundidad 0)
+Postfija:  10 4 - 3 -
+Resultado: 3
+
+Expresion: 100/5/2
+Agrupacion: correcta (profundidad 0)
+Postfija:  100 5 / 2 /
+Resultado: 10
+
+Expresion: 7*8-6/3
+Agrupacion: correcta (profundidad 0)
+Postfija:  7 8 * 6 3 / -
+Resultado: 54
+

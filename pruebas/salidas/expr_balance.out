@@ -1,0 +1,18 @@
+Expresion: (2+3
+Error: simbolos de agrupacion sin balancear
+
+Expresion: 2+3)
+Error: simbolos de agrupacion sin balancear
+
+Expresion: (2+3]
+Error: simbolos de agrupacion sin balancear
+
+Expresion: [(2+3])
+Error: simbolos de agrupacion sin balancear
+
+Expresion: )(2+3)(
+Error: simbolos de agrupacion sin balancear
+
+Expresion: {2+3)
+Error: simbolos de agrupacion sin balancear
+

@@ -1,0 +1,25 @@
+Expresion: 123+456
+Agrupacion: correcta (profundidad 0)
+Postfija:  123 456 +
+Resultado: 579
+
+Expresion: 1000/10
+Agrupacion: correcta (profundidad 0)
+Postfija:  1000 10 /
+Resultado: 100
+
+Expresion: 12*34
+Agrupacion: correcta (profundidad 0)
+Postfija:  12 34 *
+Resultado: 408
+
+Expresion: 9999
+Agrupacion: correcta (profundidad 0)
+Postfija:  9999
+Resultado: 9999
+
+Expresion:  25 * 4 - 100
+Agrupacion: correcta (profundidad 0)
+Postfija:  25 4 * 100 -
+Resultado: 0
+
