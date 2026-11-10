@@ -26,6 +26,22 @@ prueba() {
     fi
 }
 
+# prueba_archivo <nombre> <ruta del programa> <archivo de entrada o /dev/null>
+# El programa se carga desde archivo (argumento) y los datos vienen de la entrada.
+prueba_archivo() {
+    nombre=$1
+    ruta=$2
+    entrada=$3
+    total=$((total + 1))
+    ./bin/simpletron "$ruta" < "$entrada" | tr -d '\r' > "$obtenida"
+    if diff <(tr -d '\r' < "pruebas/salidas/$nombre.out") "$obtenida" > /dev/null; then
+        echo "OK     $nombre"
+        ok=$((ok + 1))
+    else
+        echo "FALLO  $nombre"
+    fi
+}
+
 prueba suma            suma
 prueba mayor_a         mayor
 prueba mayor_b         mayor
@@ -33,6 +49,11 @@ prueba centinela       centinela
 prueba operaciones     operaciones
 prueba division_cero   operaciones
 prueba entrada_invalida operaciones
+
+# Carga desde archivo
+prueba_archivo archivo_suma        programas/sml/suma.sml              pruebas/entradas/suma.in
+prueba_archivo archivo_inexistente programas/sml/no_existe.sml         /dev/null
+prueba_archivo archivo_invalido    pruebas/entradas/programa_invalido.sml /dev/null
 
 rm -f "$obtenida"
 echo "---"
