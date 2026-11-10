@@ -2,7 +2,6 @@
 bin/
 *.o
 *.exe
-*.out
 
 # Temporales
 *~
