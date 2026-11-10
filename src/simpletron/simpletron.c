@@ -1,3 +1,9 @@
+/*
+ * Extensiones (rama feature/extensiones):
+ *   12 NEWLINE   imprime un salto de linea (el operando se ignora)
+ *   34 MODULE    acumulador = acumulador % memoria[operando]
+ *   35 POWER     acumulador = acumulador ^ memoria[operando]
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,12 +17,15 @@
 /* --- Codigos de operacion SML --- */
 #define OP_READ         10
 #define OP_WRITE        11
+#define OP_NEWLINE      12   /* extension */
 #define OP_LOAD         20
 #define OP_STORE        21
 #define OP_ADD          30
 #define OP_SUBTRACT     31
 #define OP_DIVIDE       32
 #define OP_MULTIPLY     33
+#define OP_MODULE       34   /* extension */
+#define OP_POWER        35   /* extension */
 #define OP_BRANCH       40
 #define OP_BRANCHNEG    41
 #define OP_BRANCHZERO   42
@@ -348,6 +357,10 @@ static int correrCiclo(int mem[], Registros *reg)
                 printf("%02d => %d\n", reg->dir, mem[reg->dir]);
                 break;
 
+            case OP_NEWLINE:
+                printf("\n");
+                break;
+
             case OP_LOAD:
                 reg->acc = mem[reg->dir];
                 break;
@@ -395,6 +408,52 @@ static int correrCiclo(int mem[], Registros *reg)
                     activo = 0;
                 }
                 break;
+
+            case OP_MODULE:
+                if (mem[reg->dir] == 0)
+                {
+                    printf("***No se puede calcular el residuo entre cero***\n");
+                    error = 1;
+                    activo = 0;
+                }
+                else
+                {
+                    reg->acc = reg->acc % mem[reg->dir];
+                }
+                break;
+
+            case OP_POWER:
+            {
+                int exponente = mem[reg->dir];
+                long resultado = 1;
+                int i;
+
+                if (exponente < 0)
+                {
+                    printf("***Exponente negativo no valido***\n");
+                    error = 1;
+                    activo = 0;
+                    break;
+                }
+
+                for (i = 0; i < exponente; i++)
+                {
+                    resultado = resultado * reg->acc;
+                    if (resultado > PALABRA_MAX || resultado < PALABRA_MIN)
+                    {
+                        printf("***Desbordamiento del acumulador***\n");
+                        error = 1;
+                        activo = 0;
+                        break;
+                    }
+                }
+
+                if (activo)
+                {
+                    reg->acc = (int)resultado;
+                }
+                break;
+            }
 
             case OP_BRANCH:
                 reg->pc = reg->dir;
