@@ -1,0 +1,6 @@
+Error en el renglon 2 (linea Simple 20): las variables deben ser una letra minuscula
+Error en el renglon 3 (linea Simple 30): los comandos deben escribirse en minusculas ('LET')
+Error en el renglon 4 (linea Simple 40): expresion no valida: simbolos de agrupacion sin balancear
+Error en el renglon 6 (linea Simple 60): comando desconocido 'foo'
+Error en la linea Simple 50: la linea destino 999 no existe
+Compilacion fallida: 5 error(es)
