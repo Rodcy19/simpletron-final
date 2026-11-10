@@ -1,6 +1,10 @@
 /*
  * Extensiones (rama feature/extensiones):
  *   12 NEWLINE   imprime un salto de linea (el operando se ignora)
+ *   13 WRITESTR  imprime la cadena guardada desde memoria[operando]
+ *   14 READSTR   lee una linea del teclado y la guarda desde memoria[operando]
+ *                Formato de cadena: memoria[d] = longitud n y en las n
+ *                posiciones siguientes un caracter (codigo 0-255) por palabra.
  *   34 MODULE    acumulador = acumulador % memoria[operando]
  *   35 POWER     acumulador = acumulador ^ memoria[operando]
  */
@@ -18,6 +22,8 @@
 #define OP_READ         10
 #define OP_WRITE        11
 #define OP_NEWLINE      12   /* extension */
+#define OP_WRITESTR     13   /* extension */
+#define OP_READSTR      14   /* extension */
 #define OP_LOAD         20
 #define OP_STORE        21
 #define OP_ADD          30
@@ -360,6 +366,72 @@ static int correrCiclo(int mem[], Registros *reg)
             case OP_NEWLINE:
                 printf("\n");
                 break;
+
+            case OP_WRITESTR:
+            {
+                int n = mem[reg->dir];
+                int i;
+
+                if (n < 0 || reg->dir + n >= CAPACIDAD)
+                {
+                    printf("***Cadena no valida***\n");
+                    error = 1;
+                    activo = 0;
+                    break;
+                }
+                for (i = 1; i <= n; i++)
+                {
+                    if (mem[reg->dir + i] < 0 || mem[reg->dir + i] > 255)
+                    {
+                        printf("***Caracter no valido en la cadena***\n");
+                        error = 1;
+                        activo = 0;
+                        break;
+                    }
+                }
+                if (activo)
+                {
+                    for (i = 1; i <= n; i++)
+                    {
+                        putchar(mem[reg->dir + i]);
+                    }
+                }
+                break;
+            }
+
+            case OP_READSTR:
+            {
+                char buffer[128];
+                size_t n;
+                size_t i;
+
+                printf("Teclee una cadena: ");
+                if (fgets(buffer, sizeof buffer, stdin) == NULL)
+                {
+                    printf("\n***Se acabaron los datos de entrada***\n");
+                    error = 1;
+                    activo = 0;
+                    break;
+                }
+                n = strlen(buffer);
+                while (n > 0 && (buffer[n - 1] == '\n' || buffer[n - 1] == '\r'))
+                {
+                    n--;
+                }
+                if (reg->dir + (int)n >= CAPACIDAD)
+                {
+                    printf("***La cadena no cabe en memoria***\n");
+                    error = 1;
+                    activo = 0;
+                    break;
+                }
+                mem[reg->dir] = (int)n;
+                for (i = 0; i < n; i++)
+                {
+                    mem[reg->dir + 1 + (int)i] = (unsigned char)buffer[i];
+                }
+                break;
+            }
 
             case OP_LOAD:
                 reg->acc = mem[reg->dir];
