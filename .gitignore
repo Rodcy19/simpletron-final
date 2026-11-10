@@ -1,1 +1,10 @@
-$s
+# Compilados
+bin/
+*.o
+*.exe
+*.out
+
+# Temporales
+*~
+*.swp
+.vscode/
