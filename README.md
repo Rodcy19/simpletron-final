@@ -8,6 +8,13 @@ Proyecto final: computadora virtual Simpletron (con 100 palabras de memoria), ej
 
 - gcc y bash (probado con MSYS2/UCRT64 en Windows y Git Bash), se recomienda Git Bash o MSYS2 en windows.
 
+## Descargar
+
+```bash
+git clone https://github.com/Rodcy19/simpletron-final.git
+cd simpletron-final
+```
+
 ## Compilar
 
 ```bash
